@@ -1,6 +1,7 @@
 package com.acciojob.FirstRESTAPI;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,12 +9,13 @@ import java.util.List;
 @Service
 public class ServiceLayer {
 
-    RepositoryLayer repoObj = new RepositoryLayer();
+    @Autowired
+    private RepositoryLayer repoObject;
 
 
     public String addUserToDb(User user){
 
-        String result = repoObj.addUserToDb(user);
+        String result = repoObject.addUserToDb(user);
         return result;
         //I need to call a method from the Repository Layer
 
@@ -22,7 +24,7 @@ public class ServiceLayer {
 
     public User getFromDb(int userId){
 
-        User userObj= repoObj.getfromDb(userId);
+        User userObj= repoObject.getfromDb(userId);
         return userObj;
     }
 
@@ -30,7 +32,7 @@ public class ServiceLayer {
     public String personWithYoungestAge(){
 
         //From repository fetched all the Users
-        List<User> allUser = repoObj.getAllUsers();
+        List<User> allUser = repoObject.getAllUsers();
         int minAge = 100;
         String ansName = null;
 
@@ -43,6 +45,16 @@ public class ServiceLayer {
             }
         }
         return ansName;
+    }
+
+
+    public int getTotalPeople(){
+
+        //Get raw data from DB
+        List<User> allUsers = repoObject.getAllUsers();
+
+        int totalPeople = allUsers.size();
+        return totalPeople;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.acciojob.FirstRESTAPI;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -10,11 +11,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
+@Slf4j
 @RestController
 public class ControllerLayer {
 
+
+    List<Integer> li = new ArrayList<>();
+
     @Autowired
     private ServiceLayer serviceLayerObj;
+
+    @GetMapping("/printLogs")
+    public void printLogs(){
+
+        log.trace("This is a trace level log");
+        log.debug("This is a debug log");
+        log.info("This is an info level log");
+        log.warn("This is a warning log");
+        log.error("This is a error log");
+    }
 
 
     @PostMapping("/addToDb")
